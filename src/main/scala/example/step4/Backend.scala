@@ -68,7 +68,7 @@ class WriteBackArbiter(implicit p: Parameters) extends LazyModule with DontOmitG
   lazy val module = new LazyModuleImp(this){
     val inputs = input_node.in.map(_._1)
     val exclusive_ports = inputs.filter(_.bits.priority == 0)
-    val shared_ports = inputs.filterNot(_.bits.priority != 0)
+    val shared_ports = inputs.filterNot(_.bits.priority == 0)
     exclusive_ports.foreach(_.ready := true.B)
     // ...
   }
